@@ -12,32 +12,56 @@ export interface Survey {
 interface Props {
   survey: Survey;
   handleSubmitAnswer: (value: any) => void;
-  //   handleInputChange: void;
-  //   answer: string | number;
 }
 
 const InputForm = (props: Props) => {
-  const [singleObject, setSingleObject] = useState({});
-  console.log("alal");
+  const { expected } = props.survey;
+  const [error, setError] = useState<boolean>(false);
+  const validateEmail = (email: string) => {
+    const re = /^(([^<>()\[\]\.,;:\s@"]+(\.[^<>()\[\]\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    console.log("regex", re.test(email));
+    setError(!re.test(email));
+  };
+
+  const validateAge = (age: number) => setError(!(age > 18 && age < 65));
+
   console.log("prop questuon", props);
+  const handleValidation = (value: string | number, type: string) => {
+    switch (type) {
+      case "email":
+        validateEmail(value as string);
+        break;
+      case "number":
+        validateAge(value as number);
+        break;
+      default:
+        console.log("incorrect value");
+    }
+  };
   return (
     <div>
       <h1>{props.survey.question}</h1>
       <div className="">
         <input
           type="email"
-          // value={this.state.email}
-          // onChange={this.handleEmailChange}
-          placeholder={props.survey.expected.placeholder}
+          onFocus={(event) =>
+            handleValidation(event.target.value, expected.type)
+          }
+          onChange={(event) =>
+            handleValidation(event.target.value, expected.type)
+          }
+          onBlur={(event) => {
+            handleValidation(event.target.value, expected.type);
+          }}
+          placeholder={expected.placeholder}
           onKeyUp={(event) => {
             if (event.keyCode === 13) {
               console.log("hello on submit working");
               props.handleSubmitAnswer(event.currentTarget.value);
             }
           }}
-          //   onSubmit={() => handleInputChange}
         />
-        <span>Invalid e-mail address</span>
+        {error ? <span>Invalid {expected.placeholder}</span> : null}
       </div>
     </div>
   );

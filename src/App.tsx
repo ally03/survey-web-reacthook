@@ -32,6 +32,7 @@ const App = () => {
   if (!loading) {
     return <div>loading ...</div>;
   } else {
+    console.log("survey full state", surveys);
     console.log("queation", surveys[questionIndex], surveys.length);
     return (
       <div className="App">
