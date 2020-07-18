@@ -1,0 +1,19 @@
+input {
+  background: white;
+  border-radius: 4px;
+  border: 2px solid #e8e8e8;
+  width: 95%;
+  height: 38px;
+  margin-top: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-sizing: border-box;
+}
+span {
+  display: inline-block;
+  font-size: 12px;
+  text-align: left;
+  width: 100%;
+  font-style: italic;
+  color: #ca3938;
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "question": "what is your email?",
+    "answer": "undefined",
+    "expected": {
+      "placeholder": "Email",
+      "type": "email"
+    }
+  },
+  {
+    "question": "what is your age ?",
+    "answer": "undefined",
+    "expected": {
+      "placeholder": "Age",
+      "type": "number"
+    }
+  },
+  {
+    "question": "what is your last name ?",
+    "answer": "undefined",
+    "expected": {
+      "placeholder": "Last Name",
+      "type": "string"
+    }
+  }
+]
