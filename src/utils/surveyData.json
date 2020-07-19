@@ -1,5 +1,21 @@
 [
   {
+    "question": "Do you have any health issue?",
+    "answer": "undefined",
+    "expected": {
+      "placeholder": "Health problem",
+      "type": "boolean"
+    },
+    "sub": {
+      "question": "Tell us about your health issue below",
+      "answer": "undefined",
+      "expected": {
+        "placeholder": "Health problem",
+        "type": "string"
+      }
+    }
+  },
+  {
     "question": "what is your email?",
     "answer": "undefined",
     "expected": {
@@ -29,9 +45,15 @@
     "answer": "undefined",
     "expected": {
       "placeholder": "Health problem",
-      "type": "string"
+      "type": "boolean"
     },
-    "extraQuestion": "Tell us about your health issue below",
-    "extraAnswer": "undefined"
+    "sub": {
+      "question": "Tell us about your health issue below",
+      "answer": "undefined",
+      "expected": {
+        "placeholder": "Health problem",
+        "type": "string"
+      }
+    }
   }
 ]

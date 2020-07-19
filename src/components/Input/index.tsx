@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./index.css";
 
-export interface Survey {
+interface SubSurvey {
+  sub: any;
   question: string;
   answer: string | number;
   expected: {
@@ -9,13 +10,22 @@ export interface Survey {
     type: string;
   };
 }
+export interface Survey {
+  question: string;
+  answer: string | number;
+  expected: {
+    placeholder: string;
+    type: string;
+  };
+  sub: SubSurvey;
+}
+
 interface Props {
   survey: Survey;
   handleSubmitAnswer: (value: any) => void;
-  handleNext: () => void;
 }
 
-const InputForm = (props: Props) => {
+const Input = (props: Props) => {
   const { expected } = props.survey;
   const [error, setError] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<any>("");
@@ -50,27 +60,17 @@ const InputForm = (props: Props) => {
     }
   };
 
-  //   const handleNext = (event: any) => {
-  //     if (!error) {
-  //       console.log("inputValue:", inputValue);
-  //       props.handleSubmitAnswer(inputValue);
-  //       props.handleNext();
-  //     }
-  //   };
-
   const handleEnter = (newEvent: any) => {
-    console.log("newEvent", newEvent);
     if (!error && newEvent.length !== 0) {
       handleValidation(newEvent, expected.type);
-      console.log("hello on submit working", newEvent);
       props.handleSubmitAnswer(newEvent);
     }
   };
   return (
     <div>
-      <h1>{props.survey.question}</h1>
-      <div className="">
+      <div>
         <input
+          className="survey-input"
           type="email"
           onFocus={(event) =>
             handleValidation(event.target.value, expected.type)
@@ -98,11 +98,13 @@ const InputForm = (props: Props) => {
             }
           }}
         />
-        {error ? <span>Invalid {expected.placeholder}</span> : null}
+        {error ? (
+          <span className="survey-span">Invalid {expected.placeholder}</span>
+        ) : null}
       </div>
       <button onClick={() => handleEnter(inputValue)}>Next Question</button>
     </div>
   );
 };
 
-export default InputForm;
+export default Input;
