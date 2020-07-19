@@ -8,6 +8,15 @@
     }
   },
   {
+    "question": "what is your first name ?",
+    "answer": "undefined",
+    "expected": {
+      "placeholder": "First Name",
+      "type": "string"
+    }
+  },
+
+  {
     "question": "what is your age ?",
     "answer": "undefined",
     "expected": {
@@ -16,11 +25,13 @@
     }
   },
   {
-    "question": "what is your last name ?",
+    "question": "Do you have any health issue?",
     "answer": "undefined",
     "expected": {
-      "placeholder": "Last Name",
+      "placeholder": "Health problem",
       "type": "string"
-    }
+    },
+    "extraQuestion": "Tell us about your health issue below",
+    "extraAnswer": "undefined"
   }
 ]

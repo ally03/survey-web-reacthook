@@ -28,12 +28,16 @@ const App = () => {
       surveys[questionIndex].answer = value;
       return surveys;
     });
+    handleNext();
+    // setQuestionIndex(questionIndex + 1);
+  };
+  const handleNext = () => {
+    setQuestionIndex(questionIndex + 1);
   };
   if (!loading) {
     return <div>loading ...</div>;
   } else {
     console.log("survey full state", surveys);
-    console.log("queation", surveys[questionIndex], surveys.length);
     return (
       <div className="App">
         <div className="App-form">
@@ -42,11 +46,9 @@ const App = () => {
               <InputForm
                 survey={surveys[questionIndex]}
                 handleSubmitAnswer={handleSubmitAnswer}
+                handleNext={handleNext}
                 // handleInputChange={handleInputChange}
               />
-              <button onClick={() => setQuestionIndex(questionIndex + 1)}>
-                Next Question
-              </button>
             </div>
           ) : (
             <div>survey suceessful</div>
