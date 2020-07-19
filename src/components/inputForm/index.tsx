@@ -18,7 +18,7 @@ interface Props {
 const InputForm = (props: Props) => {
   const { expected } = props.survey;
   const [error, setError] = useState<boolean>(false);
-  //   const [inputValue, setInputValue] = useState<any>("hafiz");
+  const [inputValue, setInputValue] = useState<any>("");
 
   const validateEmail = (email: string) => {
     const re = /^(([^<>()\],;:\s@"]+([^<>()\],;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -30,7 +30,7 @@ const InputForm = (props: Props) => {
     setError(!(age > 18 && age < 65));
   };
   const validateString = (string: string) => {
-    setError(!string.match(/^[a-zA-Z]+$/));
+    setError(!String(string).match(/^[a-zA-Z]+$/));
   };
 
   const handleValidation = (value: string | number, type: string) => {
@@ -50,11 +50,20 @@ const InputForm = (props: Props) => {
     }
   };
 
-  const handleNext = (event: any) => {
-    if (!error) {
-      //   console.log("inputValue:", inputValue);
-      //   props.handleSubmitAnswer(inputValue);
-      props.handleNext();
+  //   const handleNext = (event: any) => {
+  //     if (!error) {
+  //       console.log("inputValue:", inputValue);
+  //       props.handleSubmitAnswer(inputValue);
+  //       props.handleNext();
+  //     }
+  //   };
+
+  const handleEnter = (newEvent: any) => {
+    console.log("newEvent", newEvent);
+    if (!error && newEvent.length !== 0) {
+      handleValidation(newEvent, expected.type);
+      console.log("hello on submit working", newEvent);
+      props.handleSubmitAnswer(newEvent);
     }
   };
   return (
@@ -68,7 +77,7 @@ const InputForm = (props: Props) => {
           }
           onChange={(event) => {
             handleValidation(event.target.value, expected.type);
-            // setInputValue(event.currentTarget.value);
+            setInputValue(event.currentTarget.value);
           }}
           onBlur={(event) => {
             handleValidation(event.target.value, expected.type);
@@ -78,21 +87,20 @@ const InputForm = (props: Props) => {
             if (event.currentTarget.value.length === 0) {
               setError(true);
             }
+            var newEvent = event.currentTarget.value;
             if (
               event.keyCode === 13 &&
               !error &&
               event.currentTarget.value.length !== 0
             ) {
-              handleValidation(event.currentTarget.value, expected.type);
-              console.log("hello on submit working", event.currentTarget.value);
-              props.handleSubmitAnswer(event.currentTarget.value);
+              handleEnter(newEvent);
               event.currentTarget.value = "";
             }
           }}
         />
         {error ? <span>Invalid {expected.placeholder}</span> : null}
       </div>
-      <button onClick={handleNext}>Next Question</button>
+      <button onClick={() => handleEnter(inputValue)}>Next Question</button>
     </div>
   );
 };
