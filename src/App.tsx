@@ -20,7 +20,7 @@ const App = () => {
   }, []);
   const survey: Survey = surveys[questionIndex];
 
-  const handleSubmitAnswer = (value: any) => {
+  const handleSubmitAnswer = (value: string) => {
     if (check) {
       //this condition will be true if you say you do have health condition
       setSurveys((surveys) => {
@@ -48,16 +48,33 @@ const App = () => {
       return (
         <div>
           <CheckBox check={check} handleCheck={handleCheck} />
+          {!check ? (
+            <button
+              style={{ display: "flex" }}
+              className="next-button"
+              onClick={() => handleSubmitAnswer("no")}
+            >
+              next question
+            </button>
+          ) : null}
+
           {check === true ? (
             <Input
               survey={survey.sub}
               handleSubmitAnswer={handleSubmitAnswer}
+              isLast={surveys.length - 1 === questionIndex}
             />
           ) : null}
         </div>
       );
     } else if (survey.expected.type === "string" || "email") {
-      return <Input survey={survey} handleSubmitAnswer={handleSubmitAnswer} />;
+      return (
+        <Input
+          survey={survey}
+          handleSubmitAnswer={handleSubmitAnswer}
+          isLast={surveys.length - 1 === questionIndex}
+        />
+      );
     } else {
       return "nothing to see";
     }

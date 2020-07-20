@@ -22,13 +22,14 @@ export interface Survey {
 
 interface Props {
   survey: Survey;
-  handleSubmitAnswer: (value: any) => void;
+  handleSubmitAnswer: (value: string) => void;
+  isLast: boolean;
 }
 
 const Input = (props: Props) => {
   const { expected } = props.survey;
   const [error, setError] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<any>("");
+  const [inputValue, setInputValue] = useState<string>("");
   const mainInput = useRef<any>("");
   const validateEmail = (email: string) => {
     const re = /^(([^<>()\],;:\s@"]+([^<>()\],;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -36,7 +37,6 @@ const Input = (props: Props) => {
   };
 
   const validateAge = (age: number) => {
-    console.log(isNaN(age), "age vali");
     setError(!(age > 18 && age < 65));
   };
   const validateString = (string: string) => {
@@ -60,7 +60,7 @@ const Input = (props: Props) => {
     }
   };
 
-  const handleEnter = (newEvent: any) => {
+  const handleEnter = (newEvent: string) => {
     if (!error && newEvent.length !== 0) {
       handleValidation(newEvent, expected.type);
       props.handleSubmitAnswer(newEvent);
@@ -101,8 +101,9 @@ const Input = (props: Props) => {
       {error ? (
         <span className="survey-span">Invalid {expected.placeholder}</span>
       ) : null}
+
       <button className="next-button" onClick={() => handleEnter(inputValue)}>
-        Next Question
+        {props.isLast ? "Done" : "Next Question"}
       </button>
     </div>
   );
