@@ -37,15 +37,6 @@ const App = () => {
       });
       setQuestionIndex(questionIndex + 1);
     }
-
-    // setSurveys((surveys) => {
-    //   // surveys[questionIndex].answer = value;
-    //   check
-    //     ? (surveys[questionIndex].sub.answer = value)
-    //     : (surveys[questionIndex].answer = value);
-    //   return surveys;
-    // });
-    // setQuestionIndex(questionIndex + 1);
   };
 
   const handleCheck = (value: boolean) => {
@@ -53,8 +44,6 @@ const App = () => {
   };
 
   const renderData = () => {
-    // console.log("latesh one", survey.sub);
-    // console.log("survey type", survey.expected.type);
     if (survey.expected.type === "boolean") {
       return (
         <div>
